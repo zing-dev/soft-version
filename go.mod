@@ -1,4 +1,4 @@
-module soft-version
+module github.com/zhangrxiang/soft-version
 
 go 1.12
 
