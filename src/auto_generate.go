@@ -8,10 +8,10 @@ func NewSoft() *Soft {
 		Author:    "author",
 		Copyright: "Copyright",
 		Version: Version{
-			Version:   "0.0.4",
+			Version:   "0.0.1",
 			Status:    Base,
 			updatedAt: "2019.12.02 16:51:06",
-			Log:       "update",
+			Log:       "init",
 		},
 	}
 	return s
