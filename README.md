@@ -2,7 +2,9 @@
 
 ## Example
 first use the library such as:
-```
+```go
+package main
+
 import (
 	soft "github.com/zhangrxiang/soft-version/src"
 )
@@ -19,7 +21,7 @@ $ go build
 $ ./[You Soft] init
 ```
 update version.json file under your project,input your project info
-```
+```json
 {
   "name": "name",
   "alias": "alias",
