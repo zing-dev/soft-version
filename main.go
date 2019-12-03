@@ -5,6 +5,5 @@ import (
 )
 
 func main() {
-	command := soft.NewCommand()
-	command.Parse()
+	soft.NewCommand().Parse()
 }

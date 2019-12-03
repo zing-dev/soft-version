@@ -16,7 +16,6 @@ import (
 
 type Command struct {
 	App                 *kingpin.Application
-	AutoPath            string
 	soft                Soft
 	runCallback         func()
 	beforeParseCallback func()
@@ -32,11 +31,6 @@ func NewCommand() *Command {
 	return &Command{
 		soft: s,
 	}
-}
-
-func (c *Command) SetAutoPath(AutoPath string) *Command {
-	c.AutoPath = AutoPath
-	return c
 }
 
 func (c *Command) BeforeParseCallback(callback func()) *Command {
@@ -75,7 +69,7 @@ func (c *Command) Parse() {
 	})
 
 	c.App.Command("build", "开发编译[软件开发者专用]").Action(build)
-	c.App.Command("init", "开发编译[软件开发者专用]").Action(initJson)
+	c.App.Command("init", "初始化软件版本配置文件[软件开发者专用]").Action(initJson)
 	kingpin.MustParse(c.App.Parse(os.Args[1:]))
 }
 

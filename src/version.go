@@ -19,10 +19,10 @@ const (
 
 type Version struct {
 	Version   string `json:"version"`
-	hash      string
 	Log       string `json:"log"`
 	Status    string `json:"status"`
 	updatedAt string
+	hash      string
 }
 
 func Md5FileStr() (string, error) {
