@@ -3,16 +3,17 @@ package soft
 
 func NewSoft() *Soft {
 	s := &Soft{
-		Name:      "soft-version",
-		Alias:     "soft-version",
-		Author:    "author",
-		Copyright: "Copyright",
+		Name:      "xx-软件",
+		Alias:     "别名",
+		Author:    "作者",
+		Copyright: "All rights reserved",
 		Version: Version{
 			Version:   "0.0.1",
 			Status:    Base,
-			updatedAt: "2019.12.02 16:51:06",
+			updatedAt: "2020.01.17 09:29:47",
 			Log:       "init",
 		},
+		Inherit: true,
 	}
 	return s
 }

@@ -23,15 +23,16 @@ $ ./[You Soft] init
 update version.json file under your project,input your project info
 ```json
 {
-  "name": "name",
-  "alias": "alias",
-  "author": "author",
+  "name": "xx-软件",
+  "alias": "别名",
+  "author": "作者",
   "version": {
-    "version": "0.0.0",
+    "version": "0.0.1",
     "log": "init",
     "status": "Base"
   },
-  "copyright": "Copyright",
+  "copyright": "All rights reserved",
+  "inherit": true
 }
 ```
 after go on
@@ -39,27 +40,30 @@ after go on
 $ ./[You Soft] build
 $ go build
 $ ./[You Soft] help
-author
+
+usage: xx-软件 [<flags>] <command> [<args> ...]
+
+作者
 
 Flags:
-  --help  Show context-sensitive help (also try --he
-lp-long and --help-man).
+  --help  Show context-sensitive help (also try --help-long and --help-man)
+.
 
 Commands:
   help [<command>...]
     Show help.
 
   run
-    运行soft-version
+    运行xx-软件
 
   version
-    soft-version软件版本
+    xx-软件版本
 
   full-version
-    soft-version软件版本全称
+    xx-软件版本全称
 
   info
-    soft-version软件版本信息
+    xx-软件版本信息
 
   build
     开发编译[软件开发者专用]

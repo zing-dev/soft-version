@@ -10,6 +10,7 @@ type Soft struct {
 	Author    string  `json:"author"`
 	Version   Version `json:"version"`
 	Copyright string  `json:"copyright"`
+	Inherit   bool    `json:"inherit"`
 }
 
 func (s *Soft) SimpleVersion() string {
@@ -20,10 +21,14 @@ func (s *Soft) FullVersion() string {
 	return fmt.Sprintf("%s %s_%s_%s", s.Name, s.Version.Version, s.Version.updatedAt[:10], s.Version.Status)
 }
 
+func (s *Soft) fullVersion() string {
+	return fmt.Sprintf("%s_%s_%s", s.Version.Version, s.Version.updatedAt[:10], s.Version.Status)
+}
+
 func (s *Soft) Info() string {
 	return fmt.Sprintf(
-		"name: %s\nversion: %s\nauthor: %s\nlatestlog: %s\nsignature: %s\nlasttime: %s\ncopyright: %s",
-		s.Alias, s.FullVersion(), s.Author, s.Version.Log, s.Version.hash,
+		"name: %s\nversion: %s\nalias: %s\nauthor: %s\nlatestlog: %s\nsignature: %s\nlasttime: %s\ncopyright: %s",
+		s.Name, s.fullVersion(), s.Alias, s.Author, s.Version.Log, s.Version.hash,
 		s.Version.updatedAt, s.Copyright,
 	)
 }
@@ -41,6 +46,7 @@ func (s *Soft) JSON() string {
 				updatedAt: "%s",
 				Log:       "%s",
 			},
+			Inherit: true,
 		}`,
 		s.Name, s.Alias, s.Author, s.Copyright, s.Version.Version, s.Version.Status, s.Version.updatedAt, s.Version.Log,
 	)

@@ -48,22 +48,22 @@ func (c *Command) Parse() {
 	if c.beforeParseCallback != nil {
 		c.beforeParseCallback()
 	}
-	c.App.Command("run", fmt.Sprintf("运行%s", c.soft.Alias)).Action(func(context *kingpin.ParseContext) error {
+	c.App.Command("run", fmt.Sprintf("运行%s", c.soft.Name)).Action(func(context *kingpin.ParseContext) error {
 		if c.runCallback == nil {
 			return errors.New("软件没有回调运行程序函数")
 		}
 		c.runCallback()
 		return nil
 	})
-	c.App.Command("version", fmt.Sprintf("%s软件版本", c.soft.Alias)).Action(func(context *kingpin.ParseContext) error {
+	c.App.Command("version", fmt.Sprintf("%s版本", c.soft.Name)).Action(func(context *kingpin.ParseContext) error {
 		fmt.Println(c.soft.SimpleVersion())
 		return nil
 	})
-	c.App.Command("full-version", fmt.Sprintf("%s软件版本全称", c.soft.Alias)).Action(func(context *kingpin.ParseContext) error {
+	c.App.Command("full-version", fmt.Sprintf("%s版本全称", c.soft.Name)).Action(func(context *kingpin.ParseContext) error {
 		fmt.Println(c.soft.FullVersion())
 		return nil
 	})
-	c.App.Command("info", fmt.Sprintf("%s软件版本信息", c.soft.Alias)).Action(func(context *kingpin.ParseContext) error {
+	c.App.Command("info", fmt.Sprintf("%s版本信息", c.soft.Name)).Action(func(context *kingpin.ParseContext) error {
 		fmt.Println(c.soft.Info())
 		return nil
 	})
@@ -82,15 +82,16 @@ func initJson(_ *kingpin.ParseContext) error {
 			return errors.New("创建版本配置文件失败")
 		}
 		soft := &Soft{
-			Name:   "name",
-			Alias:  "alias",
-			Author: "author",
+			Name:   "xx-软件",
+			Alias:  "别名",
+			Author: "作者",
 			Version: Version{
-				Version: "0.0.0",
+				Version: "0.0.1",
 				Log:     "init",
 				Status:  Base,
 			},
-			Copyright: "Copyright",
+			Copyright: "All rights reserved",
+			Inherit:   true,
 		}
 		content, err := json.MarshalIndent(soft, "", "  ")
 		if err != nil {
