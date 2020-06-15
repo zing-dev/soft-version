@@ -89,6 +89,7 @@ func initJson(_ *kingpin.ParseContext) error {
 				Version: "0.0.1",
 				Log:     "init",
 				Status:  Base,
+				GitHash: "",
 			},
 			Copyright: "All rights reserved",
 			Inherit:   true,

@@ -27,8 +27,8 @@ func (s *Soft) fullVersion() string {
 
 func (s *Soft) Info() string {
 	return fmt.Sprintf(
-		"name: %s\nversion: %s\nalias: %s\nauthor: %s\nlatestlog: %s\nsignature: %s\nlasttime: %s\ncopyright: %s",
-		s.Name, s.fullVersion(), s.Alias, s.Author, s.Version.Log, s.Version.hash,
+		"name: %s\nversion: %s\nalias: %s\nauthor: %s\nlatestlog: %s\nsignature: %s\ngit signature: %s\nlasttime: %s\ncopyright: %s",
+		s.Name, s.fullVersion(), s.Alias, s.Author, s.Version.Log, s.Version.hash, s.Version.GitHash,
 		s.Version.updatedAt, s.Copyright,
 	)
 }
@@ -43,11 +43,13 @@ func (s *Soft) JSON() string {
 			Version: Version{
 				Version:   "%s",
 				Status:    %s,
+				GitHash:    "%s",
 				updatedAt: "%s",
 				Log:       "%s",
 			},
 			Inherit: true,
 		}`,
-		s.Name, s.Alias, s.Author, s.Copyright, s.Version.Version, s.Version.Status, s.Version.updatedAt, s.Version.Log,
+		s.Name, s.Alias, s.Author, s.Copyright, s.Version.Version,
+		s.Version.Status, s.Version.GitHash, s.Version.updatedAt, s.Version.Log,
 	)
 }

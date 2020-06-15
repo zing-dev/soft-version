@@ -21,6 +21,7 @@ type Version struct {
 	Version   string `json:"version"`
 	Log       string `json:"log"`
 	Status    string `json:"status"`
+	GitHash   string `json:"git_hash"`
 	updatedAt string
 	hash      string
 }
