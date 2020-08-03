@@ -18,12 +18,12 @@ const (
 )
 
 type Version struct {
-	Version   string `json:"version"`
+	Version   string `json:"tag"`
 	Log       string `json:"log"`
 	Status    string `json:"status"`
+	Hash      string `json:"hash"`
 	GitHash   string `json:"git_hash"`
-	updatedAt string
-	hash      string
+	CreatedAt string `json:"created_at"`
 }
 
 func Md5FileStr() (string, error) {

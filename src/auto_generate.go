@@ -2,19 +2,21 @@
 package soft
 
 func NewSoft() *Soft {
-	s := &Soft{
-		Name:      "版本控制-软件",
-		Alias:     "别名",
-		Author:    "作者",
-		Copyright: "All rights reserved",
-		Version: Version{
-			Version:   "0.0.1",
-			Status:    Base,
-			GitHash:   "1f10cb1d57ef6e1ce962634148c95223bd2e4d0f",
-			updatedAt: "2020.06.15 17:12:44",
-			Log:       "init",
-		},
-		Inherit: true,
-	}
+	s :=
+		&Soft{
+			Name:      "xx-软件",
+			Alias:     "别名",
+			Author:    "作者",
+			Copyright: "All rights reserved",
+			Version: []Version{
+				{
+					Version:   "0.0.1",
+					Status:    Base,
+					GitHash:   "",
+					CreatedAt: "2020.08.03 18:27:20",
+					Log:       "init",
+				},
+			},
+		}
 	return s
 }

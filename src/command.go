@@ -27,7 +27,7 @@ func NewCommand() *Command {
 	if err != nil {
 		fmt.Println("md5", err)
 	}
-	s.Version.hash = str
+	s.Version[0].Hash = str
 	return &Command{
 		Soft: s,
 	}
@@ -67,6 +67,10 @@ func (c *Command) Parse() {
 		fmt.Println(c.Soft.Info())
 		return nil
 	})
+	c.App.Command("list", fmt.Sprintf("%s版本日志信息", c.Soft.Name)).Action(func(context *kingpin.ParseContext) error {
+		fmt.Println(c.Soft.List())
+		return nil
+	})
 
 	c.App.Command("build", "开发编译[软件开发者专用]").Action(build)
 	c.App.Command("init", "初始化软件版本配置文件[软件开发者专用]").Action(initJson)
@@ -81,18 +85,21 @@ func initJson(_ *kingpin.ParseContext) error {
 		if err != nil {
 			return errors.New("创建版本配置文件失败")
 		}
+		hash, _ := Md5FileStr()
 		soft := &Soft{
 			Name:   "xx-软件",
 			Alias:  "别名",
 			Author: "作者",
-			Version: Version{
-				Version: "0.0.1",
-				Log:     "init",
-				Status:  Base,
-				GitHash: "",
+			Version: []Version{
+				{
+					Version:   "0.0.1",
+					Log:       "init",
+					Status:    Base,
+					Hash:      hash,
+					CreatedAt: fmt.Sprintf("%s", time.Now().Format("2006.01.02 15:04:05")),
+				},
 			},
 			Copyright: "All rights reserved",
-			Inherit:   true,
 		}
 		content, err := json.MarshalIndent(soft, "", "  ")
 		if err != nil {
@@ -110,7 +117,7 @@ func initJson(_ *kingpin.ParseContext) error {
 
 //构建
 func build(_ *kingpin.ParseContext) error {
-	file, err := os.Open("version.json")
+	file, err := os.OpenFile("version.json", os.O_RDWR, 0666)
 	if err != nil {
 		return errors.New("无版本配置文件")
 	}
@@ -125,7 +132,13 @@ func build(_ *kingpin.ParseContext) error {
 	if err != nil {
 		return errors.New("unmarshal " + err.Error())
 	}
-	soft.Version.updatedAt = time.Now().Format("2006.01.02 15:04:05")
+	soft.Version[0].CreatedAt = time.Now().Format("2006.01.02 15:04:05")
+	hash, _ := Md5FileStr()
+	soft.Version[0].Hash = hash
+
+	content, _ = json.MarshalIndent(soft, "", "  ")
+	_, err = file.Seek(0, io.SeekStart)
+	_, err = file.Write(content)
 	_, f, _, ok := runtime.Caller(0)
 	if !ok {
 		return errors.New("caller err")
