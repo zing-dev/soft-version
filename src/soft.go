@@ -30,7 +30,7 @@ func (s *Soft) fullVersion() string {
 func (s *Soft) Info() string {
 	version := s.Version[0]
 	return fmt.Sprintf(
-		"name: %s\nversion: %s\nalias: %s\nauthor: %s\nlatestlog: %s\nsignature: %s\ngit signature: %s\nlasttime: %s\ncopyright: %s",
+		"name: %s\nversion: %s\nalias: %s\nauthor: %s\nlatestlog: %s\nhash: %s\ngit signature: %s\nlasttime: %s\ncopyright: %s",
 		s.Name, s.fullVersion(), s.Alias, s.Author, version.Log, version.Hash, version.GitHash,
 		version.CreatedAt, s.Copyright,
 	)
@@ -40,7 +40,7 @@ func (s *Soft) List() string {
 	str := fmt.Sprintf("name: %s\nalias: %s\nauthor: %s\n", s.Name, s.Alias, s.Author)
 	str += fmt.Sprintf("version:\n")
 	for k, v := range s.Version {
-		str += fmt.Sprintf("\tlog: %s\n\tsignature: %s\n\tgithash: %s\n\tlasttime: %s\n", v.Log, v.Hash, v.GitHash, v.CreatedAt)
+		str += fmt.Sprintf("\tlog: %s\n\thash: %s\n\tgithash: %s\n\tlasttime: %s\n", v.Log, v.Hash, v.GitHash, v.CreatedAt)
 		if k+1 != len(s.Version) {
 			str += "\n"
 		}
@@ -62,10 +62,11 @@ func (s *Soft) JSON() string {
 			{
 				Version:   "%s",
 				Status:    %s,
+				Hash:   "%s",
 				GitHash:   "%s",
 				CreatedAt: "%s",
 				Log:       "%s",
-			},`, v.Version, v.Status, v.GitHash, v.CreatedAt, v.Log)
+			},`, v.Version, v.Status, v.Hash, v.GitHash, v.CreatedAt, v.Log)
 	}
 
 	str += `	
