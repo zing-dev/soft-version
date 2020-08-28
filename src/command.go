@@ -92,7 +92,7 @@ func initJson(_ *kingpin.ParseContext) error {
 			Author: "作者",
 			Version: []Version{
 				{
-					Version:   "0.0.1",
+					Tag:       "0.0.1",
 					Log:       "init",
 					Status:    Base,
 					Hash:      hash,

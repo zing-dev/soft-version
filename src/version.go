@@ -18,7 +18,7 @@ const (
 )
 
 type Version struct {
-	Version   string `json:"tag"`
+	Tag       string `json:"tag"`
 	Log       string `json:"log"`
 	Status    string `json:"status"`
 	Hash      string `json:"hash"`

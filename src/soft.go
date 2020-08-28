@@ -14,17 +14,17 @@ type Soft struct {
 
 func (s *Soft) SimpleVersion() string {
 	version := s.Version[0]
-	return fmt.Sprintf("%s %s", s.Name, version.Version)
+	return fmt.Sprintf("%s %s", s.Name, version.Tag)
 }
 
 func (s *Soft) FullVersion() string {
 	version := s.Version[0]
-	return fmt.Sprintf("%s %s_%s_%s", s.Name, version.Version, version.CreatedAt[:10], version.Status)
+	return fmt.Sprintf("%s %s_%s_%s", s.Name, version.Tag, version.CreatedAt[:10], version.Status)
 }
 
 func (s *Soft) fullVersion() string {
 	version := s.Version[0]
-	return fmt.Sprintf("%s_%s_%s", version.Version, version.CreatedAt[:10], version.Status)
+	return fmt.Sprintf("%s_%s_%s", version.Tag, version.CreatedAt[:10], version.Status)
 }
 
 func (s *Soft) Info() string {
@@ -40,7 +40,7 @@ func (s *Soft) List() string {
 	str := fmt.Sprintf("name: %s\nalias: %s\nauthor: %s\n", s.Name, s.Alias, s.Author)
 	str += fmt.Sprintf("version:\n")
 	for k, v := range s.Version {
-		str += fmt.Sprintf("\tlog: %s\n\thash: %s\n\tgithash: %s\n\tlasttime: %s\n", v.Log, v.Hash, v.GitHash, v.CreatedAt)
+		str += fmt.Sprintf("\ttag: %s\n\tlog: %s\n\thash: %s\n\tgithash: %s\n\tlasttime: %s\n", v.Tag, v.Log, v.Hash, v.GitHash, v.CreatedAt)
 		if k+1 != len(s.Version) {
 			str += "\n"
 		}
@@ -60,13 +60,13 @@ func (s *Soft) JSON() string {
 	for _, v := range s.Version {
 		str += fmt.Sprintf(`
 			{
-				Version:   "%s",
+				Tag:   "%s",
 				Status:    %s,
 				Hash:   "%s",
 				GitHash:   "%s",
 				CreatedAt: "%s",
 				Log:       "%s",
-			},`, v.Version, v.Status, v.Hash, v.GitHash, v.CreatedAt, v.Log)
+			},`, v.Tag, v.Status, v.Hash, v.GitHash, v.CreatedAt, v.Log)
 	}
 
 	str += `	
