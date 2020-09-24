@@ -10,10 +10,18 @@ func NewSoft() *Soft {
 			Copyright: "All rights reserved",
 			Version: []Version{
 				{
+					Tag:       "0.0.8",
+					Status:    Base,
+					Hash:      "a96c3cf8276b39ef503fbafc96bbad6b",
+					GitHash:   "",
+					CreatedAt: "2020.09.24 15:54:44",
+					Log:       "update module address",
+				},
+				{
 					Tag:       "0.0.7",
 					Status:    Base,
 					Hash:      "499050ce9289cd6ab663e3ae3630700a",
-					GitHash:   "b3783d195bdc7f2c609ab35edc23b6ba7c319ba0",
+					GitHash:   "c7b9505af0431c01d6cdb9f6b25c8b70a57ab8d5",
 					CreatedAt: "2020.09.24 10:00:11",
 					Log:       "add LICENSE",
 				},

@@ -4,11 +4,19 @@
   "author": "作者",
   "versions": [
     {
+      "tag": "0.0.8",
+      "log": "update module address",
+      "status": "Base",
+      "hash": "a96c3cf8276b39ef503fbafc96bbad6b",
+      "git_hash": "",
+      "created_at": "2020.09.24 15:54:44"
+    },
+    {
       "tag": "0.0.7",
       "log": "add LICENSE",
       "status": "Base",
       "hash": "499050ce9289cd6ab663e3ae3630700a",
-      "git_hash": "",
+      "git_hash": "c7b9505af0431c01d6cdb9f6b25c8b70a57ab8d5",
       "created_at": "2020.09.24 10:00:11"
     },
     {
