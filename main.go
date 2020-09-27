@@ -1,7 +1,7 @@
 package main
 
 import (
-	soft "github.com/zhangrxiang/soft-version/src"
+	soft "github.com/zing-dev/soft-version/src"
 )
 
 func main() {
