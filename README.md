@@ -6,12 +6,20 @@ first use the library such as:
 package main
 
 import (
-	soft "github.com/zhangrxiang/soft-version/src"
+	_ "embed"
+	"github.com/urfave/cli/v2"
+	"github.com/zing-dev/soft-version/soft"
+	"os"
 )
 
+//go:embed version.json
+var str []byte
+
 func main() {
-	soft.NewCommand().Parse()
+	app := soft.Cli{App: cli.NewApp(),Src: str}
+	app.Run(os.Args)
 }
+
 
 ```
 then open your terminal:
