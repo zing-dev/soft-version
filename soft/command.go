@@ -7,11 +7,17 @@ import (
 	"github.com/urfave/cli/v2"
 	"io"
 	"os"
+	"sync"
 	"time"
 )
 
 const (
 	filename = "version.json"
+)
+
+var (
+	once = sync.Once{}
+	c    *Cli
 )
 
 type Cli struct {
@@ -20,42 +26,20 @@ type Cli struct {
 	Soft *Soft
 }
 
-//配置文件初始化
-func initJson() error {
-	_, err := os.Open("version.json")
-	if os.IsNotExist(err) {
-		file, err := os.Create("version.json")
-		if err != nil {
-			return errors.New("创建版本配置文件失败")
+// NewCli 实例化 Cli
+func NewCli(app *cli.App, src []byte) *Cli {
+	once.Do(func() {
+		c = &Cli{
+			App: app,
+			Src: src,
 		}
-		hash, _ := Md5FileStr()
-		soft := &Soft{
-			Name:   "xx-软件",
-			Alias:  "别名",
-			Author: "作者",
-			Version: []Version{
-				{
-					Tag:       "0.0.1",
-					Log:       "init",
-					Status:    Base,
-					Hash:      hash,
-					CreatedAt: fmt.Sprintf("%s", time.Now().Format("2006.01.02 15:04:05")),
-				},
-			},
-			Copyright: "All rights reserved",
-		}
-		content, err := json.MarshalIndent(soft, "", "  ")
-		if err != nil {
-			return errors.New("")
-		}
-		_, err = file.Write(content)
-		if err != nil {
-			return errors.New("写入版本配置文件失败")
-		}
-		fmt.Println("初始化版本控制文件成功")
-		return err
-	}
-	return errors.New("版本配置文件已经存在")
+	})
+	return c
+}
+
+// GetCli 获取 Cli
+func GetCli() *Cli {
+	return c
 }
 
 func (c *Cli) Run(arguments []string) error {
