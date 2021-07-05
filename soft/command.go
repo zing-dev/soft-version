@@ -46,13 +46,13 @@ func (c *Cli) Run(arguments []string) error {
 	if len(c.Src) == 0 {
 		err := c.init()
 		if err != nil {
-			return err
+			return errors.New(fmt.Sprintf("init err: %s", err))
 		}
 	}
 	c.Soft = new(Soft)
 	err := json.Unmarshal(c.Src, &c.Soft)
 	if err != nil {
-		return err
+		return errors.New(fmt.Sprintf("unmarshal err: %s", err))
 	}
 	c.App.Commands = append(c.App.Commands, &cli.Command{
 		Name:        "init",
@@ -202,6 +202,7 @@ func (c *Cli) init() error {
 	if err != nil {
 		return errors.New(fmt.Sprintf("转换失败: %s", err))
 	}
+	_, _ = file.Seek(0, io.SeekStart)
 	_, err = file.Write(content)
 	if err != nil {
 		return errors.New(fmt.Sprintf("写入版本配置文件: %s", err))
