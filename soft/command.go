@@ -55,86 +55,100 @@ func (c *Cli) Run(arguments []string) error {
 		return errors.New(fmt.Sprintf("unmarshal err: %s", err))
 	}
 	c.App.Commands = append(c.App.Commands, &cli.Command{
-		Name:        "init",
-		Aliases:     nil,
-		Usage:       "init json version",
-		UsageText:   "cmd init",
-		Description: "初始化版本配置JSON文件",
-		Action: func(context *cli.Context) error {
-			return c.init()
+		Name:        "dev",
+		Usage:       "仅供开发者使用的命令",
+		UsageText:   "dev",
+		Description: "仅供开发者使用的命令",
+		Subcommands: []*cli.Command{
+			{
+				Name:        "init",
+				Usage:       "初始化版本文件",
+				UsageText:   "cmd init",
+				Description: "初始化版本配置JSON文件",
+				Action: func(context *cli.Context) error {
+					return c.init()
+				},
+				HelpName: "init",
+			}, {
+				Name:        "build",
+				Usage:       "更新版本文件",
+				UsageText:   "cmd build",
+				Description: "Build版本配置JSON文件",
+				Action: func(context *cli.Context) error {
+					return c.build()
+				},
+				HelpName: "build",
+			},
 		},
-		HelpName: "init",
 	}, &cli.Command{
-		Name:        "build",
-		Aliases:     nil,
-		Usage:       "build json version",
-		UsageText:   "cmd build",
-		Description: "Build版本配置JSON文件",
-		Action: func(context *cli.Context) error {
-			return c.build()
-		},
-		HelpName: "build",
-	}, &cli.Command{
-		Name:        "info",
-		Usage:       "this is soft info",
-		UsageText:   "cmd info",
-		Description: "软件信息",
-		Action: func(context *cli.Context) error {
-			fmt.Println(c.Soft.Info())
-			return nil
-		},
-		HelpName: "info",
-	}, &cli.Command{
-		Name:        "version",
-		Usage:       "this is soft version",
-		UsageText:   "cmd version",
-		Description: "软件信息",
-		Action: func(context *cli.Context) error {
-			fmt.Println(c.Soft.SimpleVersion())
-			return nil
-		},
-		HelpName: "version",
-	}, &cli.Command{
-		Name:        "full-version",
-		Usage:       "this is soft full-version",
-		UsageText:   "cmd full-version",
-		Description: "软件信息",
-		Action: func(context *cli.Context) error {
-			fmt.Println(c.Soft.FullVersion())
-			return nil
-		},
-		HelpName: "full-version",
-	}, &cli.Command{
-		Name:        "json",
-		Usage:       "this is soft info",
-		UsageText:   "cmd json",
-		Description: "软件信息json",
-		Action: func(context *cli.Context) error {
-			fmt.Println(string(c.Src))
-			return nil
-		},
-		HelpName: "json",
-	}, &cli.Command{
-		Name:        "list",
-		Usage:       "this is soft list info",
-		UsageText:   "cmd list",
-		Description: "软件日志列表",
-		Action: func(context *cli.Context) error {
-			fmt.Println(c.Soft.List())
-			return nil
-		},
-		HelpName: "list",
-	}, &cli.Command{
-		Name:        "json",
-		Usage:       "this is soft info",
-		UsageText:   "cmd json",
-		Description: "软件信息json",
-		Action: func(context *cli.Context) error {
-			fmt.Println(string(c.Src))
-			return nil
-		},
-		HelpName: "json",
-	})
+		Name:        "about",
+		Usage:       "关于软件的详情",
+		UsageText:   "version",
+		Description: "使用 about 子命令 查看软件信息",
+		Subcommands: []*cli.Command{
+			{
+				Name:        "info",
+				Usage:       "this is soft info",
+				UsageText:   "cmd info",
+				Description: "软件信息",
+				Action: func(context *cli.Context) error {
+					fmt.Println(c.Soft.Info())
+					return nil
+				},
+				HelpName: "info",
+			}, {
+				Name:        "version",
+				Usage:       "this is soft version",
+				UsageText:   "cmd version",
+				Description: "软件信息",
+				Action: func(context *cli.Context) error {
+					fmt.Println(c.Soft.SimpleVersion())
+					return nil
+				},
+				HelpName: "version",
+			}, {
+				Name:        "full-version",
+				Usage:       "this is soft full-version",
+				UsageText:   "cmd full-version",
+				Description: "软件信息",
+				Action: func(context *cli.Context) error {
+					fmt.Println(c.Soft.FullVersion())
+					return nil
+				},
+				HelpName: "full-version",
+			}, {
+				Name:        "json",
+				Usage:       "this is soft info",
+				UsageText:   "cmd json",
+				Description: "软件信息json",
+				Action: func(context *cli.Context) error {
+					fmt.Println(string(c.Src))
+					return nil
+				},
+				HelpName: "json",
+			}, {
+				Name:        "list",
+				Usage:       "this is soft list info",
+				UsageText:   "cmd list",
+				Description: "软件日志列表",
+				Action: func(context *cli.Context) error {
+					fmt.Println(c.Soft.List())
+					return nil
+				},
+				HelpName: "list",
+			}, {
+				Name:        "json",
+				Usage:       "this is soft info",
+				UsageText:   "cmd json",
+				Description: "软件信息json",
+				Action: func(context *cli.Context) error {
+					fmt.Println(string(c.Src))
+					return nil
+				},
+				HelpName: "json",
+			},
+		}},
+	)
 	return c.App.Run(arguments)
 }
 
