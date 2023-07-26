@@ -153,30 +153,24 @@ func (c *Cli) Run(arguments []string) error {
 }
 
 func (c *Cli) build() error {
-	file, err := os.OpenFile(filename, os.O_RDWR, 0777)
-	if err != nil {
-		return err
-	}
-	data, err := io.ReadAll(file)
-	if err != nil {
-		return err
-	}
+	data, err := os.ReadFile(filename)
 	err = json.Unmarshal(data, &c.Soft)
 	if err != nil {
 		return nil
 	}
 	hash, _ := Md5FileStr()
 	c.Soft.Version[0].Hash = hash
-	c.Soft.Version[0].CreatedAt = time.Now().Format("2006.01.02 15:04:05")
-	content, err := json.MarshalIndent(c.Soft, "", "  ")
+	c.Soft.Version[0].CreatedAt = time.Now().Format(time.DateTime)
+	data, err = json.MarshalIndent(c.Soft, "", "  ")
 	if err != nil {
 		return errors.New(fmt.Sprintf("转换失败: %s", err))
 	}
-	_, err = file.Seek(0, io.SeekStart)
+	file, err := os.Create(filename)
+	err = json.Unmarshal(data, &c.Soft)
 	if err != nil {
-		return err
+		return nil
 	}
-	_, err = file.Write(content)
+	_, err = file.Write(data)
 	if err != nil {
 		return errors.New(fmt.Sprintf("写入版本配置文件: %s", err))
 	}
@@ -207,7 +201,7 @@ func (c *Cli) init() error {
 				Log:       "init",
 				Status:    Base,
 				Hash:      hash,
-				CreatedAt: fmt.Sprintf("%s", time.Now().Format("2006.01.02 15:04:05")),
+				CreatedAt: fmt.Sprintf("%s", time.Now().Format(time.DateTime)),
 			},
 		},
 		Copyright: "All rights reserved",
